@@ -5,7 +5,7 @@ def dfs(x, y):
   for i in range(4):
     next_x = x + dx[i]
     next_y = y + dy[i]
-    # 경계를 넘지 않는지, 배추가 있는지 확인
+    # 경계를 넘지 않는지, 집이 있는지 확인
     # print("x, y", next_x, next_y)
     if 0 <= next_x <= n - 1 and 0 <= next_y <= n - 1 and arr[next_x][
         next_y] and not visited[next_x][next_y]:
