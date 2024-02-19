@@ -15,6 +15,7 @@ https://school.programmers.co.kr/learn/courses/30/lessons/258711
 
 """
 
+
 def solution(edges):
 
     answer = [0, 0, 0, 0]
@@ -38,38 +39,35 @@ def solution(edges):
     create_v = find_create_v()
     answer['create_vertex'] = create_v
     
-
-    for start_node in graph[create_v]:
-        def find_subgraph(path_v: list, path_e: set):
-            sv = path_v[-1]
-            if len(graph[sv]) == 0: return path_v
-            for nv in graph[sv]:
-                if (sv, nv) in path_e: return path_v
-                path_v.append(nv)
-                path_e.add((sv, nv))
-                find_subgraph(path_v, path_e)
-            return path_v
-
-        path = find_subgraph([start_node], set())
-        # print(f"path with started from {start_node} : {path}")
-
-        def define_graph(path):
+    def find_subgraph(path_v: list, path_e: set):
+        sv = path_v[-1]
+        if len(graph[sv]) == 0: return path_v
+        for nv in graph[sv]:
+            if (sv, nv) in path_e: return path_v
+            path_v.append(nv)
+            path_e.add((sv, nv))
+            find_subgraph(path_v, path_e)
+        return path_v
+    
+    def define_graph(path):
             p_len = len(path)
             s_len = len(set(path))
 
             if p_len == 1 or p_len == s_len:
                 answer['bar'] += 1
                 return
-
             if (len(path) == 2 and len(set(path)) == 1) or \
                 p_len - s_len == 1:
                 answer['donut'] += 1
                 return
-            
             answer['eight'] += 1
             return
-
+    
+    for start_node in graph[create_v]:
+        path = find_subgraph([start_node], set())
         define_graph(path)
+
+    
 
     return list(answer.values())
 
