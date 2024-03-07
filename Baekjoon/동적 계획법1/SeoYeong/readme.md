@@ -12,7 +12,6 @@ prefix : https://www.acmicpc.net/problem/
 https://www.acmicpc.net/problem/11722 : [가장 긴 감소하는 부분수열](./11722.py)
 https://www.acmicpc.net/problem/15486 : [퇴사2](./15486.py) 구간에 대한 최소비용 또는 최대 효율 얻기 위한
 https://www.acmicpc.net/problem/1520 : 내리막길
-
 11066 : 파일 합치기, 한번쯤은 꼭 풀어보기
 11049 : 행렬 곱셈 순서, 한번쯤은 꼭 풀어보기
 9252 : LCS2, 역추적을 하는 방법
