@@ -82,6 +82,35 @@ class Solution:
             print(f"robot:{self.robot_idx_q}")
         
 
+class ReferencedSolution:
+    """
+    Missing Point
+    - belt, robot 둘 다 큐로 구현한다.
+    - deque모듈에 rotate 메소드가 있어서 포인터롤 tracking하지 않고 리스트 자체를 회전시켜버릴 수 있다.
+
+    """
+    def robot_on_the_belt(self, n, k, a):
+        # 벨트, 로봇 deuqe rotate  
+        zero_cnt, ans = -1, 0
+        belt = deque(a)
+        robot = deque([False for _ in range(len(a))])
+        while True:
+            belt.rotate(1)
+            robot.rotate(1)
+            robot[n-1] = False
+            for i in range(n-2, -1, -1): # 먼저 올라간 로봇부터 움직여야 함 -> 거꾸로 돌아야함
+                if robot[i] and not robot[i+1] and belt[i+1]>=1:
+                    robot[i] = False
+                    robot[i+1] = True
+                    belt[i+1] -= 1
+            robot[n-1] = False
+            if belt[0] != 0:
+                robot[0] = True
+                belt[0] -= 1
+            ans += 1
+            if belt.count(0) >= k: break
+        return ans
+
 
 n, k = map(int, input().split()) # 칸 개수, 종려 조건(내구도 0인칸 개수
 a =list(map(int, input().split()) )
@@ -89,7 +118,8 @@ a =list(map(int, input().split()) )
 # n, k, a = 3, 6, [10, 10, 10, 10, 10, 10]
 # n, k, a = 4, 5, [10, 1, 10, 6, 3, 4, 8, 2]
 # n, k, a = 5, 8, [100, 99, 60, 80, 30, 20, 10, 89, 99, 100] 
-answer = Solution(n, k, a).execute()
+# answer = Solution(n, k, a).execute()
+answer = ReferencedSolution().robot_on_the_belt(n, k, a)
 print(answer)
 
 
